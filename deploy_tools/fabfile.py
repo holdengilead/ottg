@@ -7,11 +7,12 @@ env.forward_agent = True
 env.roledefs = {
     # key   # hostname from config
     'staging': ['staging_superlists'],
+    'live': ['live_superlists'],
 }
 REPO_URL = 'https://github.com/holdengilead/ottg.git'
 
 
-@roles('staging')
+@roles('live')
 @task
 def deploy():
     site_folder = '/home/{}/sites/{}'.format(env.user, env.host)
