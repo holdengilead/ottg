@@ -48,7 +48,7 @@ def _update_settings(source_folder, site_name):
     if not exists(secret_key_file):
         chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
         key = ''.join(random.SystemRandom().choice(chars) for _ in range(50))
-        append(secret_key_file, 'SECRET_KEY = {}'.format(key))
+        append(secret_key_file, 'SECRET_KEY = "{}"'.format(key))
     append(settings_path, '\nfrom .secret_key import SECRET_KEY')
 
 
@@ -61,7 +61,7 @@ def _update_virtualenv(source_folder):
 
 
 def _update_static_files(source_folder):
-    aux = 'cd {} && ../virtualenv/bin/python manage.py collecstatic --noinput'
+    aux = 'cd {} && ../virtualenv/bin/python manage.py collectstatic --noinput'
     run(aux.format(source_folder))
 
 
