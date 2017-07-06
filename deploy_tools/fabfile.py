@@ -1,10 +1,18 @@
 from fabric.contrib.files import append, exists, sed
-from fabric.api import env, local, run
+from fabric.api import env, local, run, task, roles
 import random
 
+env.use_ssh_config = True
+env.forward_agent = True
+env.roledefs = {
+    # key   # hostname from config
+    'staging': ['staging_superlists'],
+}
 REPO_URL = 'https://github.com/holdengilead/ottg.git'
 
 
+@roles('staging')
+@task
 def deploy():
     site_folder = '/home/{}/sites/{}'.format(env.user, env.host)
     source_folder = site_folder + '/source'
