@@ -12,14 +12,26 @@ env.roledefs = {
 REPO_URL = 'https://github.com/holdengilead/ottg.git'
 
 
-@roles('live')
+@roles('staging')
 @task
-def deploy():
+def deploy_staging():
     site_folder = '/home/{}/sites/{}'.format(env.user, env.host)
     source_folder = site_folder + '/source'
+    deploy(site_folder, source_folder, env.host)
+
+
+@roles('live')
+@task
+def deploy_live():
+    site_folder = '/home/{}/sites/{}'.format(env.user, env.host)
+    source_folder = site_folder + '/source'
+    deploy(site_folder, source_folder, env.host)
+
+
+def deploy(site_folder, source_folder, host):
     _create_directory_structure_if_necessary(site_folder)
     _get_latest_source(source_folder)
-    _update_settings(source_folder, env.host)
+    _update_settings(source_folder, host)
     _update_virtualenv(source_folder)
     _update_static_files(source_folder)
     _update_database(source_folder)
