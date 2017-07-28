@@ -13,6 +13,7 @@ MAX_WAIT = 10
 class FunctionalTest(StaticLiveServerTestCase):
 
     def setUp(self):
+        print('YUJUUUUUUUU HE ENTRADO EN UN TEST')
         self.browser = webdriver.Firefox()
         self.staging_server = os.environ.get('STAGING_SERVER')
         if self.staging_server:
@@ -20,6 +21,7 @@ class FunctionalTest(StaticLiveServerTestCase):
             reset_database(self.staging_server)
 
     def tearDown(self):
+        print('YUJUUUUUUUU HE SALIDO DE UN TEST')
         self.browser.quit()
 
     def wait(fn):
