@@ -4,7 +4,6 @@ from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.keys import Keys
 import time
-from pyvirtualdisplay import Display
 
 from .server_tools import reset_database
 
@@ -14,8 +13,6 @@ MAX_WAIT = 10
 class FunctionalTest(StaticLiveServerTestCase):
 
     def setUp(self):
-        display = Display(visible=0, size=(1024, 768))
-        display.start()
         self.browser = webdriver.Firefox()
         self.staging_server = os.environ.get('STAGING_SERVER')
         if self.staging_server:
